@@ -12,16 +12,12 @@
     margin-bottom: 25px;
   }
 
-  form a {
-    float: right;
-  }
-
   form > button {
     display: block;
-    margin: 25px auto;
+    margin: auto;
   }
 
-  form > div {
-    margin-top: 25px;
+  form > input {
+    margin-bottom: 25px;
   }
 }
