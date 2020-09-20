@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+  h2 {
+    margin: 0 15px;
+  }
+
+  div {
+    width: 50%;
+  }
+
+  a {
+    font-weight: 400;
+    font-size: 16px;
+    margin: 0 15px;
+    &.active {
+      color: #ed143d;
+    }
+  }
+
+  button {
+    margin: 0 15px;
+  }
+
+  div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  div:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
