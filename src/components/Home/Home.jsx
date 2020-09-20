@@ -1,8 +1,11 @@
 import React from "react";
 import style from './Home.module.scss';
+import {withAuthRedirect} from "../../hoc/authRedirect";
 
-export const Home = () => {
+const Home = () => {
     return (
         <main className={style.container}>Welcome</main>
     )
 }
+
+export default withAuthRedirect(Home)

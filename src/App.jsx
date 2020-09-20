@@ -2,7 +2,7 @@ import React from "react";
 import style from './App.module.scss';
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import {Header} from "./components/Header/Header";
-import {Home} from "./components/Home/Home";
+import Home from "./components/Home/Home";
 import {Register} from "./components/Register/Register";
 import {Login} from "./components/Login/Login";
 import {WrongUrl} from "./components/WrongUrl/WrongUrl";
