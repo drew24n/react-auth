@@ -3,6 +3,8 @@ import style from './Preloader.module.scss';
 
 export const Preloader = () => {
     return (
-        <div className={style.container}/>
+        <div className={style.container}>
+            <div/>
+        </div>
     )
 }

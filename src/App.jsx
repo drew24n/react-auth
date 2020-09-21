@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import style from './App.module.scss';
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import {Header} from "./components/Header/Header";
@@ -8,6 +8,9 @@ import {Login} from "./components/Login/Login";
 import {WrongUrl} from "./components/WrongUrl/WrongUrl";
 
 export const App = () => {
+    useEffect(() => {
+
+    })
     return (
         <div className={style.container}>
             <BrowserRouter basename={process.env.PUBLIC_URL}>
