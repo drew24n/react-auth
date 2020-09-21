@@ -23,7 +23,7 @@ export const Register = () => {
     )
 }
 
-//for passing redux-form props to ant design input
+//for passing redux-form props to ant design input component
 const AntInput = (props) => <Input {...props.input} {...props} input={null} meta={null}/>
 
 const RegisterForm = ({handleSubmit}) => {
