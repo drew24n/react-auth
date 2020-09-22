@@ -32,8 +32,8 @@ const AntInput = (props) => <Input {...props.input} {...props} input={null} meta
 const LoginForm = ({handleSubmit}) => {
     return (
         <form onSubmit={handleSubmit}>
-            <Field placeholder={'email'} component={AntInput} name={"email"}/>
-            <Field placeholder={'password'} component={AntInput} name={"password"}/>
+            <Field placeholder={'email'} component={AntInput} name={"email"} type={'email'}/>
+            <Field placeholder={'password'} component={AntInput} name={"password"} type={'password'}/>
             <Button type="primary" htmlType={'submit'}>Enter</Button>
         </form>
     )

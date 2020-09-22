@@ -1,10 +1,10 @@
 {
   "name": "auth",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "private": true,
-  "homepage": "https://drew24n.github.io/react-auth/",
+  "homepage": "https://drew24n.github.io/react-redux-auth-app/",
   "dependencies": {
-    "antd": "^4.6.5",
+    "antd": "^4.5.0",
     "axios": "^0.20.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

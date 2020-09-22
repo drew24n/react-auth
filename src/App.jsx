@@ -1,25 +1,34 @@
 import React, {useEffect} from "react";
 import style from './App.module.scss';
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {HashRouter, Switch, Route} from "react-router-dom";
 import {Header} from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import {Register} from "./components/Register/Register";
 import {Login} from "./components/Login/Login";
 import {WrongUrl} from "./components/WrongUrl/WrongUrl";
-import {authMeThunk} from "./redux/authReducer";
+import {authMeThunk, setTokenAction} from "./redux/authReducer";
 import {useDispatch, useSelector} from "react-redux";
+import Preloader from "./components/Preloader/Preloader";
 
 export const App = () => {
     let authState = useSelector(state => state.auth)
     let dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(authMeThunk(authState.token))
-    }, [dispatch, authState.token])
+    let storageToken = localStorage.getItem('access_token')
 
+    useEffect(() => {
+        if (storageToken) {
+            dispatch(setTokenAction(storageToken))
+        }
+        dispatch(authMeThunk(storageToken))
+    }, [dispatch, storageToken])
+
+    if (!authState.isInitialized) return <Preloader/>
+
+    //поменял BrowserRouter на HashRouter в связи с особенностями роутинга на github
     return (
         <div className={style.container}>
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <HashRouter basename={'/'}>
                 <Header/>
                 <Switch>
                     <Route exact path={'/'}><Home isAuthorized={authState.isAuthorized}/></Route>
@@ -27,7 +36,7 @@ export const App = () => {
                     <Route path={'/login'}><Login/></Route>
                     <Route><WrongUrl/></Route>
                 </Switch>
-            </BrowserRouter>
+            </HashRouter>
         </div>
     )
 }
