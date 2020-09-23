@@ -3,7 +3,7 @@ import style from './Header.module.scss';
 import {NavLink} from "react-router-dom";
 import {Button} from "antd";
 import {useDispatch, useSelector} from "react-redux";
-import {logoutThunk} from "../../redux/authReducer";
+import {logout} from "../../redux/authReducer";
 
 export const Header = () => {
     let authState = useSelector(state => state.auth)
@@ -18,7 +18,7 @@ export const Header = () => {
             <div>
                 {!authState.isAuthorized && <NavLink activeClassName={style.active} to={'/register'}>Sign up</NavLink>}
                 {!authState.isAuthorized && <NavLink activeClassName={style.active} to={'/login'}>Login</NavLink>}
-                {authState.isAuthorized && <Button onClick={() => dispatch(logoutThunk())}>Logout</Button>}
+                {authState.isAuthorized && <Button onClick={() => dispatch(logout())}>Logout</Button>}
             </div>
         </header>
     )

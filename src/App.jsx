@@ -6,7 +6,7 @@ import Home from "./components/Home/Home";
 import {Register} from "./components/Register/Register";
 import {Login} from "./components/Login/Login";
 import {WrongUrl} from "./components/WrongUrl/WrongUrl";
-import {authMeThunk, setTokenAction} from "./redux/authReducer";
+import {authMe} from "./redux/authReducer";
 import {useDispatch, useSelector} from "react-redux";
 import Preloader from "./components/Preloader/Preloader";
 
@@ -14,18 +14,13 @@ export const App = () => {
     let authState = useSelector(state => state.auth)
     let dispatch = useDispatch()
 
-    let storageToken = localStorage.getItem('access_token')
-
     useEffect(() => {
-        if (storageToken) {
-            dispatch(setTokenAction(storageToken))
-        }
-        dispatch(authMeThunk(storageToken))
-    }, [dispatch, storageToken])
+        let accessToken = localStorage.getItem('access_token')
+        dispatch(authMe(accessToken))
+    }, [dispatch])
 
     if (!authState.isInitialized) return <Preloader/>
 
-    //поменял BrowserRouter на HashRouter в связи с особенностями роутинга на github
     return (
         <div className={style.container}>
             <HashRouter basename={'/'}>

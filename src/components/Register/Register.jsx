@@ -1,7 +1,7 @@
 import React from "react";
 import style from './Register.module.scss';
 import {Button, Input, Spin} from "antd";
-import {registerThunk} from "../../redux/authReducer";
+import {signup} from "../../redux/authReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {Field, reduxForm} from "redux-form";
 
@@ -10,7 +10,7 @@ export const Register = () => {
     let dispatch = useDispatch()
 
     let register = (payload) => {
-        if (payload.email && payload.password) dispatch(registerThunk(payload.email, payload.password))
+        if (payload.email && payload.password) dispatch(signup(payload.email, payload.password))
     }
 
     return (
@@ -23,7 +23,6 @@ export const Register = () => {
     )
 }
 
-//for passing redux-form props to ant design input component
 const AntInput = (props) => <Input {...props.input} {...props} input={null} meta={null}/>
 
 const RegisterForm = ({handleSubmit}) => {

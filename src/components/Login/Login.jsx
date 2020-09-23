@@ -2,7 +2,7 @@ import React from "react";
 import style from './Login.module.scss';
 import {Button, Input, Spin} from "antd";
 import {useDispatch, useSelector} from "react-redux";
-import {loginThunk} from "../../redux/authReducer";
+import {login} from "../../redux/authReducer";
 import {Field, reduxForm} from "redux-form";
 import {Redirect} from "react-router-dom";
 
@@ -10,8 +10,8 @@ export const Login = () => {
     let authState = useSelector(state => state.auth)
     let dispatch = useDispatch()
 
-    let login = (payload) => {
-        if (payload.email && payload.password) dispatch(loginThunk(payload.email, payload.password))
+    let loginFunc = (payload) => {
+        if (payload.email && payload.password) dispatch(login(payload.email, payload.password))
     }
 
     if (authState.isAuthorized) return <Redirect to={'/'}/>
@@ -20,13 +20,12 @@ export const Login = () => {
         <main className={style.container}>
             <Spin spinning={authState.isFetching} size="large">
                 <h1>Log in</h1>
-                <LoginReduxForm onSubmit={login}/>
+                <LoginReduxForm onSubmit={loginFunc}/>
             </Spin>
         </main>
     )
 }
 
-//for passing redux-form props to ant design input component
 const AntInput = (props) => <Input {...props.input} {...props} input={null} meta={null}/>
 
 const LoginForm = ({handleSubmit}) => {
