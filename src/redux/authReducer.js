@@ -25,7 +25,7 @@ export const authReducer = (state = initialState, action) => {
     }
 }
 
-const setIsAuthorized = (isAuthorized) => ({type: SET_IS_AUTHORIZED, isAuthorized})
+export const setIsAuthorized = (isAuthorized) => ({type: SET_IS_AUTHORIZED, isAuthorized})
 const setIsFetching = (isFetching) => ({type: SET_IS_FETCHING, isFetching})
 const setIsInitialized = (isInitialized) => ({type: SET_IS_INITIALIZED, isInitialized})
 
@@ -58,7 +58,7 @@ export const login = (email, password) => async (dispatch) => {
         let response = await authAPI.login(email, password)
         if (response.data.statusCode === 200) {
             localStorageService.setToken(response.data.body)
-            await dispatch(authMe())
+            dispatch(setIsAuthorized(true))
         } else if (response.data.code === 1012) {
             notificationError(response.data.message)
         } else if (response.data.body.code === 1001) {
@@ -73,20 +73,10 @@ export const login = (email, password) => async (dispatch) => {
 
 export const authMe = () => async (dispatch) => {
     try {
-        let accessToken = localStorageService.getAccessToken()
-        let refreshToken = localStorageService.getRefreshToken()
+        const refreshToken = localStorageService.getRefreshToken()
         if (refreshToken) {
-            let response = await authAPI.auth(accessToken)
-            if (response.data.body && response.data.body.status === 'ok') {
-                dispatch(setIsAuthorized(true))
-            } else if ((response.data.body && (response.data.body.code === 1004 || 1006)) || !accessToken.length) {
-                let refreshResponse = await authAPI.refresh(refreshToken)
-                if (refreshResponse.data.statusCode === 200) {
-                    localStorageService.setToken(refreshResponse.data.body)
-                    dispatch(setIsAuthorized(true))
-                }
-            }
-        } else dispatch(setIsAuthorized(false))
+            await authAPI.auth()
+        }
     } catch (e) {
         notificationError(e)
     } finally {
@@ -96,5 +86,5 @@ export const authMe = () => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
     localStorageService.clearToken()
-    dispatch(authMe())
+    dispatch(setIsAuthorized(false))
 }

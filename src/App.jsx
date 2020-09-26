@@ -15,8 +15,7 @@ export const App = () => {
     let dispatch = useDispatch()
 
     useEffect(() => {
-        let accessToken = localStorage.getItem('access_token')
-        dispatch(authMe(accessToken))
+        dispatch(authMe())
     }, [dispatch])
 
     if (!authState.isInitialized) return <Preloader/>

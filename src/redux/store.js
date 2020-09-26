@@ -13,3 +13,5 @@ export const store = createStore(rootReducer, compose(
     applyMiddleware(thunk),
     composeWithDevTools() ? composeWithDevTools() : f => f
 ))
+
+global.store = store
